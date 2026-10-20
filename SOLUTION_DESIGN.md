@@ -1,4 +1,4 @@
-# Solution Design: Docs Q&A Assistant for Solstice Learning
+﻿# Solution Design: Docs Q&A Assistant for Solstice Learning
 
 ## 1. Problem
 
@@ -67,10 +67,17 @@ Causes:
 - **No rate limiting or authentication**, since this is a CLI. Needed for a hosted service.
 - English only; one-shot questions with no conversation context.
 
-## 8. With more time, data or budget
+## 8. Enhancements (summary)
 
-1. **RAG pipeline (planned next):** ingest the original PDF and Word docs, embed into a vector store (Chroma), and add an optional LLM step that writes the answer using only retrieved passages, with citations. The abstention check runs first, so "don't know" never reaches the LLM.
-2. **Semantic retrieval** to cover synonyms, combined with the lexical score (hybrid).
-3. **Larger evaluation set** from real support tickets to calibrate the threshold and measure precision/recall of abstention.
-4. **Hosting:** a small API with authentication, rate limiting and a feedback button ("was this helpful?") to find doc gaps.
-5. **Doc-gap report:** aggregate abstained questions so Elena's team sees what the docs are missing.
+v1 is retrieval-only. The planned enhancements keep the same rule: **answers come only from the docs, and the assistant says "I don't have an answer" when they don't cover the question.**
+
+What we plan to add, in simple terms:
+
+1. **More document types:** read PDF, Word, Markdown and text files, not just the sample docs, and show which file and page an answer came from.
+2. **Smarter search:** understand meaning as well as words, so "kept" matches "retained".
+3. **An LLM to write the answer:** phrase the answer in plain English using only the passages found. If the docs don't cover the question, the LLM is never called.
+4. **Remembering answers:** reuse answers to repeated questions to save cost and time, and refresh them when a document changes.
+5. **A simple user interface with feedback:** a question box with thumbs up/down, so the support team can see which answers need work and which topics the docs are missing.
+
+There are four ways to deliver these: fully on-prem, Azure cloud-native, a Copilot Studio agent in Teams, or a hybrid (on-prem with Azure-hosted models only). The comparison, when to use each, pros and cons, and detailed plans are in [ENHANCEMENT_OPTIONS.md](ENHANCEMENT_OPTIONS.md).
+

@@ -60,4 +60,4 @@ logs/                runtime logs (git-ignored)
 
 ## Next steps
 
-Optional RAG enhancement: ingest PDF/Word originals into Chroma, add semantic retrieval, and use an LLM to phrase answers strictly from retrieved passages, keeping the abstention check first.
+Planned in five phases (see section 8 of [SOLUTION_DESIGN.md](SOLUTION_DESIGN.md)): multi-format ingestion (PDF, Word, Markdown, text), embeddings with Chroma, an LLM answer layer that stays grounded in retrieved passages, a response cache, and a UI with feedback collection. The abstention check always runs before any LLM call.
